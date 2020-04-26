@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>编程作业</title>
+    <script type="text/javascript"> 
+        //数组排序
+        document.write("1.数组排序————");
+        document.write("<br>");
+        //法一：sort自定义排序方法
+        var arr1=[8,19,3,12,5,4];
+        document.write("&nbsp;&nbsp;"+"原数组："+arr1);
+        var result1=arr1.sort(function(a,b){
+            if(a>b){
+                return 1;
+            }else{
+                return -1;
+            }
+        });
+        document.write("<br>");
+        document.write("&nbsp;&nbsp;"+"法一排序后："+result1+"&nbsp;&nbsp;");
+        //法二：冒泡排序
+        var arr2=[8,19,3,12,5,4];
+        var k;
+        for(var i=0;i<arr2.length;i++){
+            for(var j=i+1;j<arr2.length;j++){
+                if(arr2[i]>arr2[j]){
+                    k=arr2[i];
+                    arr2[i]=arr2[j];
+                    arr2[j]=k;
+                };
+            }
+            
+        }
+        document.write("&nbsp;&nbsp;"+"法二排序后："+arr2);
+
+        document.write("<br>");
+        document.write("<br>");
+
+        //T2——数组去重
+        document.write("2.数组去重————");
+        document.write("<br>");
+
+        var arr3=[1,2,3,4,5,3,4,6,8,1];
+        document.write("&nbsp;&nbsp;"+"原数组："+arr3);
+        document.write("<br>");
+        //首先sort快速排序
+        var result3=arr3.sort(function(a,b){
+            if(a>b){
+                return 1;
+            }else{
+                return -1;
+            }
+        });
+        for(var i=1;i<=8;i++){
+            if(result3.indexOf(i)!=result3.lastIndexOf(i)){
+                result3.splice(result3.lastIndexOf(i),1);
+            }
+        }
+        document.write("&nbsp;&nbsp;"+"去重后："+result3);
+
+        document.write("<br>");
+        document.write("<br>");
+
+        //T3————乘法表
+        document.write("3.while乘法表————");
+        document.write("<br>");
+        var space="&nbsp;",i=0;
+        while(i<=9){
+            for(var j=i;j<=9;j++){
+                var sp;
+                if(i*j<10){
+                   sp=space+space+space;
+                }else{
+                    sp=space;
+                }
+                document.writeln(i+"*"+j+"="+(i*j)+sp);
+            }
+            document.write("<br/>");
+            i++;
+        }
+
+        document.write("<br>");
+        document.write("<br>");
+
+        i=0;
+        while(i<=9){
+            for(var j=1;j<=i;j++){
+                  // 数字对齐
+                if(i*j<10){
+                    sp=space+space+space;
+                }else{
+                    sp=space;
+                }
+                 document.writeln(i+"*"+j+"="+(i*j)+sp);
+            }
+             document.write("<br/>");
+             i++;
+        }
+
+        document.write("<br>");
+        document.write("do-while乘法表————");
+        document.write("<br>");
+        
+        i=1;
+       do{
+            for(var j=1;j<=i;j++){
+                if(i*j<10){
+                    sp=space+space+space;
+                }else{
+                    sp=space;
+                }
+                if(j==1){
+					for(var k=9-i;k>0;k--){
+                        //用盒子代替空格
+						document.writeln("<span></span>");
+					}
+				}
+                 document.writeln(i+"*"+j+"="+(i*j)+sp);
+            }
+             document.write("<br/>");  
+             i++;
+        }while(i<=9);
+
+        document.write("<br>");
+        document.write("<br>");
+        
+        i=1;
+       do{
+            for(var j=i;j<=9;j++){
+                //数字对齐
+                if(i*j<10){
+                    sp=space+space+space;
+                }else{
+                    sp=space;
+                }
+                //数字前补的空格
+                if(j==i&&i!=1){
+					for(var k=1;k<=j-1;k++){
+                        //用盒子代替空格
+						document.writeln("<span></span>");
+					}
+				}
+                //计算结果
+                 document.writeln(i+"*"+j+"="+(i*j)+sp);
+            }
+             document.write("<br/>");  
+             i++;
+        }while(i<=9);
+
+        document.write("<br>");
+        document.write("<br>");
+
+        //完全数
+        document.write("4.1000以完全数————");
+        document.write("<br>");
+        for(var i=2;i<1000;i++){
+            //定义变量，sum作用每个被除数算和，新的被除数开始从新计算。
+            //c的作用找出本次除数的结果同上次商的结果相同的情况，进行筛选剔除
+            var sum=0,c=0;
+            outer:for(var j=1;j<i/2;j++){
+                //找出做商是整数的情况
+                var flag=i%j;
+                //p用于记录上次满足条件的除数
+                var p;
+                //当做商是整数的情况
+                if(flag==0){
+                    //记录本次的除数，同下一次的上做比较
+                    //比如6/2=3这里j=p=2,c=3.当j循环到=3时，p=j=3,c=3就退出本层循环，不计算6/3=2;
+                    p=j;
+                    if(c==p){
+                        break outer;
+                    }else{
+                        //除数和商相加得到所有因子的和
+                        c=i/j;
+                        sum=sum+j+c;
+                    }
+                    
+                }
+            }
+            //所有因子的和减去自身大小，然后再和自身进行比较
+            sum=sum-i;
+            if(sum==i){
+                document.write("&nbsp;&nbsp;&nbsp;"+i+"&nbsp;");
+            }
+        }
+            document.write("<br>");
+            document.write("<br>");
+
+            //最大公约数和最小公倍数
+           
+            function T5(){
+                var a=Number(document.getElementById("T5_a").value);
+                var b=Number(document.getElementById("T5_b").value);
+                var c=a*b;
+                var max=0,shang=0;
+                if(a<b){
+                    var f=a;
+                    a=b;
+                    b=f;
+                }
+                for(var i=1;i<a;i++){
+                    //a整除的情况满足，再考虑b的因子
+                    if(a%i==0){
+                        for(var j=1;j<=b;j++){
+                            //b也能被整除的因子，和a整除的因子，以及已知最大因子做比较
+                            //如果比已知因子还大，就替换
+                            if(b%j==0&&i==j&&max<j){
+                                max=j;
+                            }
+                        }
+                    }
+                }
+               alert(a+"和"+b+"的最大公约数:"+max+"最小公倍数:"+c/max);
+                // document.write("<br>");
+                // alert("最大公约数:"+max+"&nbsp;&nbsp;&nbsp;"+"最小公倍数:"+c/max);
+            };
+            
+            
+            document.write("<br>");
+            document.write("<br>");
+
+            //分解质因数
+            
+            function T6(){
+                var b=[],j=0;
+                var a=Number(document.getElementById("T6").value);
+                var c=a;
+                for(var i=2;a!=1;i++){
+                if(a%i==0){
+                        a /=i;
+                        b[j]=i;
+                        //保持i值不变，一直把当前i除完
+                        i--;
+                        j++;
+                    }
+                }
+                alert(c+"分解质因数结果:"+b);
+            }
+            
+        
+</script>
+<style type="text/css">
+    span{
+        display: inline-block;
+        width: 60px;
+        /* border: 1px solid red; */
+    }
+    i{color:red}
+</style>
+</head>
+<body>
+    <p>5.最大公约数和最小公倍数————</p> 
+    <i>没写检验，请按要求输入两个正整数</i><br>
+    请输入第一个数:<input type="text" id="T5_a"><br>
+    请输入第二个数:<input type="text" id="T5_b"><br>
+    <button onclick="T5()">计算结果</button>
+    <p>6.分解质因数————</p> 
+    <i>没写检验，请按要求输入一个正整数</i><br>   
+    请输入需要因质分解的数:<input type="text" id="T6"><br>
+    <button onclick="T6()">计算结果</button>
+    <br>
+    <br>
+    <p>内存图</p>
+    <img src="nc.png" width="800px" height="500px">
+</body>
+</html>
