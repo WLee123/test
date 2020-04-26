@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>myMap</title>
+    <script type="text/javascript">
+         var arr = [2, 3, 4, 54, 5];
+           Array.prototype.myMap = function (method) {
+            if (arguments.length < 1) {//没有参数
+                console.log('请给入参数');
+
+            } else if (arguments.length == 1 && typeof arguments[0] == "function") {
+                //只有一个回调函数的参数,this指向window 
+                var newArr = [];//空数组用于接收
+                var j = 0;//新数组的下标
+                 var newitem;//空元素用于接收返回改变后的元素
+                for (var i = 0; i < this.length; i++) {
+                    // 每一个数组元素都去执行回调函数， 操作每个数组元素，返回操作之后的数组.将改变后的元素放到一个新数组中
+                  newitem= method(this[i], i, this)
+                        newArr[j] = newitem;
+                        j++;
+                    
+                }
+                return newArr;
+            } else {
+                //this值指向第二个参数[]  
+                var newArr = [];//空数组用于接收
+                var j = 0;//新数组的下标
+                var newitem;//空元素用于接收返回改变后的元素
+                for (var i = 0; i < this.length; i++) {
+                    // 每一个数组元素都去执行回调函数， 操作每个数组元素，返回操作之后的数组.将改变后的元素放到一个新数组中
+                    newitem= method.call(arguments[1], this[i], i, this);
+                        newArr[j] = newitem;
+                        j++;
+                    
+                }
+                return newArr;
+
+            }
+        }
+        var result = arr.myMap(function (item, index, arr) {
+
+           console.log(this);
+            // console.log(item);
+            // console.log(index);
+            // console.log(arr);
+            return item+5;
+
+        }, []);
+        console.log(result);
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
